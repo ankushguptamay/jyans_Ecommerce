@@ -4,7 +4,8 @@ require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
 const user = require('./Route/userRoute');
-const customer = require('./Route/customerRoute')
+const customer = require('./Route/customerRoute');
+const deliveryPerson = require('./Route/deliveryPersonRoute')
 
 const db = require('./Model');
 db.sequelize.sync().then(() => {
@@ -22,6 +23,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.use('/api/user', user);
 app.use('/api/customer', customer);
+app.use('/api/deliveryPerson', deliveryPerson);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });

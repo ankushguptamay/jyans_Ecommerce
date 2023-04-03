@@ -29,6 +29,10 @@ db.order = require('./Customer/orderModel')(sequelize, Sequelize);
 db.orderedProduct = require('./Customer/orderedProductModel')(sequelize, Sequelize);
 db.shopingBag = require('./Customer/shopingBagModel')(sequelize, Sequelize);
 
+// DeliveryPerson
+db.deliveryPerson = require('./DeliveryPerson/deliveryPersonModel')(sequelize, Sequelize);
+db.orderLiveStatus = require('./DeliveryPerson/orderLiveStatusModel')(sequelize, Sequelize);
+
 // Association of User
 db.user.hasOne(db.bankDetails, { foreignKey: 'userId' });
 db.bankDetails.belongsTo(db.user, {foreignKey: 'userId'});
@@ -51,5 +55,12 @@ db.shopingBag.belongsTo(db.products, { foreignKey: 'productId'}); // to fetch da
 db.order.hasMany(db.orderedProduct, {foreignKey: 'orderId'});
 
 db.orderedProduct.belongsTo(db.products, {foreignKey: 'productId'})
+
+// Association of DeliveryPerson
+db.orderLiveStatus.belongsTo(db.deliveryPerson, {foreignKey: 'deliveryPersonId'});
+
+db.orderLiveStatus.belongsTo(db.user, {foreignKey: 'userId'});
+
+db.order.hasMany(db.orderLiveStatus, {foreignKey: 'orderId'});
 
 module.exports = db;

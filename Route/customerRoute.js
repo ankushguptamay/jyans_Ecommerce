@@ -16,11 +16,11 @@ customer.post("/reSendOtp", reSendOtp);
 
 customer.post("/addAddress", authCustomerToken, isCustomerPresent, addAddress);
 customer.get("/myAddress", authCustomerToken, isCustomerPresent, findAllMyAddress);
-customer.get("/address", findAllAddress);
+// customer.get("/address", findAllAddress);
 
 customer.post("/addProductInShopingBag", authCustomerToken, isCustomerPresent, addProductInShopingBag);
 customer.get("/myShopingBag", authCustomerToken, isCustomerPresent, findAllMyProductInShopingBag);
-customer.get("/shopingBag", findAllProductInShopingBag);
+// customer.get("/shopingBag", findAllProductInShopingBag);
 
 customer.post("/order", authCustomerToken, isCustomerPresent, order);
 customer.get("/myOrder", authCustomerToken, isCustomerPresent, findAllMyAllOrder);

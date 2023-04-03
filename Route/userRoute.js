@@ -16,10 +16,10 @@ user.post("/reSendOtp", reSendOtp);
 
 user.post("/addProduct", authUserToken, isUserPresent, uploadProductImages.array("productImages", 20), addProduct);
 user.get("/products", authUserToken, isUserPresent, findAllMyProducts);
-user.get("/allProducts", findAllProducts);
+// user.get("/allProducts", findAllProducts);
 
 user.post("/addBankDetails", authUserToken, isUserPresent, addBankDetails);
 user.get("/allBankDetails", authUserToken, isUserPresent, findAllBankDetails);
-user.get("/bankDetails", findBankDetails);
+// user.get("/bankDetails", findBankDetails);
 
 module.exports = user;
