@@ -1,22 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
-    const OrderProduct = sequelize.define("orderProduct", {
+    const Customer = sequelize.define("customer", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        productId: {
+        name: {
             type: Sequelize.STRING, // many association with product
         },
-        paiedAmount: {
+        email: {
             type: Sequelize.STRING, // one association with payment
         },
-        userId: {
+        contactNumber: {
             type: Sequelize.STRING, // many association with user
-        },
-        orderId: {
-            type: Sequelize.STRING
-         }
+        }
     })
-    return OrderProduct;
+    return Customer;
 }

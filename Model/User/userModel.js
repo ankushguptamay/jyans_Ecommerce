@@ -6,13 +6,13 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
         name: {
-            type: Sequelize.STRING // many association with product
+            type: Sequelize.STRING
         },
         email: {
-            type: Sequelize.STRING // one association with payment
+            type: Sequelize.STRING
         },
         contactNumber: {
-            type: Sequelize.STRING // many association with user
+            type: Sequelize.STRING
         },
         address: {
             type: Sequelize.STRING

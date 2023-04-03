@@ -6,20 +6,20 @@ const { addProduct, findAllMyProducts, findAllProducts } = require('../Controlle
 const user = express.Router();
 
 // middleware
-// const uploadImage = require('../Middleware/upload.image');
-// const { verifyToken } = require('../Middleware/verifyPartnerJWTToken');
-// const { isPartnerPreasent } = require('../Middleware/isPartnerPresent');
+const uploadProductImages = require('../Middleware/uploadProductImages');
+const { authUserToken } = require('../Middleware/authToken');
+const { isUserPresent } = require('../Middleware/isPresent');
 
-user.post("/registerPartner", registerSendOtp);
+user.post("/registerUser", registerSendOtp);
 user.post("/verifyOtp", verifyOtp);
 user.post("/reSendOtp", reSendOtp);
 
-user.post("/addProduct", addProduct);
-user.get("/products", findAllMyProducts);
+user.post("/addProduct", authUserToken, isUserPresent, uploadProductImages.array("productImages", 20), addProduct);
+user.get("/products", authUserToken, isUserPresent, findAllMyProducts);
 user.get("/allProducts", findAllProducts);
 
-user.post("/addBankDetails", addBankDetails);
-user.get("/allBankDetails", findAllBankDetails);
+user.post("/addBankDetails", authUserToken, isUserPresent, addBankDetails);
+user.get("/allBankDetails", authUserToken, isUserPresent, findAllBankDetails);
 user.get("/bankDetails", findBankDetails);
 
 module.exports = user;

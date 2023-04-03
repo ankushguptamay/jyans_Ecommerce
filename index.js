@@ -3,7 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
-const user = require('./Route/userRoute')
+const user = require('./Route/userRoute');
+const customer = require('./Route/customerRoute')
 
 const db = require('./Model');
 db.sequelize.sync().then(() => {
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(express.static(__dirname + "/public"));
 
 app.use('/api/user', user);
+app.use('/api/customer', customer);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
