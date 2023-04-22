@@ -22,7 +22,7 @@ exports.findAllMyProductInShopingBag = async (req, res) => {
             where: { customerId: req.customer.id },
             include: {
                 model: Product,
-                attributes: ['name', 'perProductPrice', 'title', 'videoLink', 'details', 'images', 'userId']
+                attributes: ['id', 'name', 'perProductPrice', 'title', 'videoLink', 'details', 'images', 'userId']
             }
         });
         res.status(200).send(shopingBag);
@@ -31,11 +31,11 @@ exports.findAllMyProductInShopingBag = async (req, res) => {
     }
 }
 
-exports.findAllProductInShopingBag = async (req, res) => {
-    try {
-        const shopingBag = await ShopingBag.findAll();
-        res.status(200).send(shopingBag);
-    } catch (err) {
-        res.status(500).send({ message: err.message });
-    }
-}
+// exports.findAllProductInShopingBag = async (req, res) => {
+//     try {
+//         const shopingBag = await ShopingBag.findAll();
+//         res.status(200).send(shopingBag);
+//     } catch (err) {
+//         res.status(500).send({ message: err.message });
+//     }
+// }

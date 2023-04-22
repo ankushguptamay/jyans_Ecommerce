@@ -7,58 +7,58 @@ const ShopingBag = db.shopingBag;
 exports.order = async (req, res) => {
     try {
         const shopingBag =
-        [
-            {
-                "id": 1,
-                "quantity": 2,
-                "createdAt": "2023-04-03T13:07:27.000Z",
-                "updatedAt": "2023-04-03T13:07:27.000Z",
-                "customerId": 1,
-                "productId": 1,
-                "product": {
-                    "name": "soap",
-                    "perProductPrice": "50",
-                    "title": null,
-                    "videoLink": null,
-                    "details": null,
-                    "userId": 1
-                }
-            },
-            {
-                "id": 2,
-                "quantity": 1,
-                "createdAt": "2023-04-03T13:08:16.000Z",
-                "updatedAt": "2023-04-03T13:08:16.000Z",
-                "customerId": 1,
-                "productId": 2,
-                "product": {
-                    "name": "tea",
-                    "perProductPrice": "500",
-                    "title": null,
-                    "videoLink": null,
-                    "details": null,
-                    "userId": 1
-                }
-            },
-            {
-                "id": 3,
-                "quantity": 3,
-                "createdAt": "2023-04-03T13:08:25.000Z",
-                "updatedAt": "2023-04-03T13:08:25.000Z",
-                "customerId": 1,
-                "productId": 3,
-                "product": {
-                    "name": "mug",
-                    "perProductPrice": "150",
-                    "title": null,
-                    "videoLink": null,
-                    "details": null,
-                    "userId": 1
-                }
-            }
-        ]
-            // req.body.shopingBag
-        const amount = "1050"; // req.body.ammount;
+        // [
+        //     {
+        //         "id": 1,
+        //         "quantity": 2,
+        //         "createdAt": "2023-04-03T13:07:27.000Z",
+        //         "updatedAt": "2023-04-03T13:07:27.000Z",
+        //         "customerId": 1,
+        //         "productId": 1,
+        //         "product": {
+        //             "name": "soap",
+        //             "perProductPrice": "50",
+        //             "title": null,
+        //             "videoLink": null,
+        //             "details": null,
+        //             "userId": 1
+        //         }
+        //     },
+        //     {
+        //         "id": 2,
+        //         "quantity": 1,
+        //         "createdAt": "2023-04-03T13:08:16.000Z",
+        //         "updatedAt": "2023-04-03T13:08:16.000Z",
+        //         "customerId": 1,
+        //         "productId": 2,
+        //         "product": {
+        //             "name": "tea",
+        //             "perProductPrice": "500",
+        //             "title": null,
+        //             "videoLink": null,
+        //             "details": null,
+        //             "userId": 1
+        //         }
+        //     },
+        //     {
+        //         "id": 3,
+        //         "quantity": 3,
+        //         "createdAt": "2023-04-03T13:08:25.000Z",
+        //         "updatedAt": "2023-04-03T13:08:25.000Z",
+        //         "customerId": 1,
+        //         "productId": 3,
+        //         "product": {
+        //             "name": "mug",
+        //             "perProductPrice": "150",
+        //             "title": null,
+        //             "videoLink": null,
+        //             "details": null,
+        //             "userId": 1
+        //         }
+        //     }
+        // ]
+            req.body.shopingBag
+        const amount = req.body.ammount;
         const shopBagId = shopingBag.map((bag) => { return bag.id });
         const order = await Order.create({
             totalAmount: amount,

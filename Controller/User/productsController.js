@@ -17,7 +17,7 @@ exports.addProduct = async (req, res) => {
             userId: req.user.id,
             images: filePath
         });
-        res.status(200).send({ message: `Partner's bank details added successfully! Id : ${products.id}` });
+        res.status(200).send({ message: `Product added successfully! Id : ${products.id}` });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
