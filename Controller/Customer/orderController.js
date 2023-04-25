@@ -58,7 +58,7 @@ exports.order = async (req, res) => {
         //     }
         // ]
             req.body.shopingBag
-        const amount = req.body.ammount;
+        const amount = req.body.amount; // total Amount of all product
         const shopBagId = shopingBag.map((bag) => { return bag.id });
         const order = await Order.create({
             totalAmount: amount,
@@ -73,7 +73,7 @@ exports.order = async (req, res) => {
                 orderId: orderId
             });
         }
-        await ShopingBag.destroy({ where: { id: shopBagId } });
+        await ShopingBag.destroy({ where: { id: shopBagId } }); // destroy ordered product for shoping bag
         res.status(200).send({ message: `Order placed successfully!` });
     } catch (err) {
         res.status(500).send({ message: err.message });

@@ -30,12 +30,3 @@ exports.findAllMyProductInShopingBag = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
-
-// exports.findAllProductInShopingBag = async (req, res) => {
-//     try {
-//         const shopingBag = await ShopingBag.findAll();
-//         res.status(200).send(shopingBag);
-//     } catch (err) {
-//         res.status(500).send({ message: err.message });
-//     }
-// }

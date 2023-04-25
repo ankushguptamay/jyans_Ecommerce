@@ -28,6 +28,7 @@ db.address = require('./Customer/addressModel')(sequelize, Sequelize);
 db.order = require('./Customer/orderModel')(sequelize, Sequelize);
 db.orderedProduct = require('./Customer/orderedProductModel')(sequelize, Sequelize);
 db.shopingBag = require('./Customer/shopingBagModel')(sequelize, Sequelize);
+db.wishList = require('./Customer/wishListModel')(sequelize,Sequelize);
 
 // DeliveryPerson
 db.deliveryPerson = require('./DeliveryPerson/deliveryPersonModel')(sequelize, Sequelize);
@@ -50,7 +51,12 @@ db.order.belongsTo(db.customer, {foreignKey: 'customerId'});
 db.customer.hasMany(db.shopingBag, { foreignKey: 'customerId' }); // to fetch data of shopingbag from customer model and add foreignKey 'customerId' in shopingbag
 db.shopingBag.belongsTo(db.customer, {foreignKey: 'customerId'}); // to fetch data of customer from shopingbag model and add foreignKey 'customerId' in shopingbag
 
+db.customer.hasMany(db.wishList, { foreignKey: 'customerId' });
+db.wishList.belongsTo(db.customer, {foreignKey: 'customerId'});
+
 db.shopingBag.belongsTo(db.products, { foreignKey: 'productId'}); // to fetch data of products from shopingbag model and add foreignKey 'productId' in shopingbag
+
+db.wishList.belongsTo(db.products, { foreignKey: 'productId'});
 
 db.order.hasMany(db.orderedProduct, {foreignKey: 'orderId'});
 

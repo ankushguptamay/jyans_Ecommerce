@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
         },
         quantity: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            defaultValue: 1
         }
     })
     return ShopingBag;

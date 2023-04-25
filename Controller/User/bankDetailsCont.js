@@ -25,12 +25,3 @@ exports.findBankDetails = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
-
-exports.findAllBankDetails = async (req, res) => {
-    try {
-        const bankdetails = await BankDetail.findAll();
-        res.status(200).send(bankdetails);
-    } catch (err) {
-        res.status(500).send({ message: err.message });
-    }
-}
