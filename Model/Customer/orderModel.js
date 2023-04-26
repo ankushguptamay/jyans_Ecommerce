@@ -7,6 +7,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         totalAmount: {
             type: Sequelize.STRING
+        },
+        orderStaus: {
+            type:Sequelize.STRING,
+            defaulyValue: "created"
         }
     })
     return Order;

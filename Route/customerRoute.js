@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerSendOtp, reSendOtp, verifyOtp } = require('../Controller/Customer/customerController');
 const { addAddress, findAllMyAddress } = require('../Controller/Customer/addressController');
-const { order, findAllMyAllOrder } = require('../Controller/Customer/orderController');
+const { creatOrder, addAddressInOrder, verifyOrder, findAllCustomerOrder } = require('../Controller/Customer/orderController');
 const { findAllProducts } = require('../Controller/User/productsController');
 const { addProductInShopingBag, findAllMyProductInShopingBag } = require('../Controller/Customer/shopingBagController');
 const { addProductInWishListByHomePage, moveProductToShopingBagFromWishList, moveProductToWishListFromShopingBag, destroyProductInWishList, findAllMyProductInWishList } = require('../Controller/Customer/wishListController');
@@ -24,8 +24,10 @@ customer.get("/myAddress", authCustomerToken, isCustomerPresent, findAllMyAddres
 customer.post("/addProductInShopingBag", authCustomerToken, isCustomerPresent, addProductInShopingBag);
 customer.get("/shopingBag", authCustomerToken, isCustomerPresent, findAllMyProductInShopingBag);
 
-customer.post("/order", authCustomerToken, isCustomerPresent, order);
-customer.get("/myOrder", authCustomerToken, isCustomerPresent, findAllMyAllOrder);
+customer.post("/creatOrder", authCustomerToken, isCustomerPresent, creatOrder);
+customer.put("/addAddressInOrder/:id", authCustomerToken, isCustomerPresent, addAddressInOrder); // orderId
+customer.put("/verifyOrder/:id", authCustomerToken, isCustomerPresent, verifyOrder); // orderId
+customer.get("/order", authCustomerToken, isCustomerPresent, findAllCustomerOrder);
 
 customer.post("/addProductInWishListByHomePage/:id", authCustomerToken, isCustomerPresent, addProductInWishListByHomePage); // productId
 customer.post("/moveProductToWishListFromShopingBag/:id", authCustomerToken, isCustomerPresent, moveProductToWishListFromShopingBag); // shopingBagId

@@ -28,7 +28,8 @@ db.address = require('./Customer/addressModel')(sequelize, Sequelize);
 db.order = require('./Customer/orderModel')(sequelize, Sequelize);
 db.orderedProduct = require('./Customer/orderedProductModel')(sequelize, Sequelize);
 db.shopingBag = require('./Customer/shopingBagModel')(sequelize, Sequelize);
-db.wishList = require('./Customer/wishListModel')(sequelize,Sequelize);
+db.wishList = require('./Customer/wishListModel')(sequelize, Sequelize);
+db.payment = require('./Customer/paymentModel')(sequelize, Sequelize);
 
 // DeliveryPerson
 db.deliveryPerson = require('./DeliveryPerson/deliveryPersonModel')(sequelize, Sequelize);
@@ -36,37 +37,42 @@ db.orderLiveStatus = require('./DeliveryPerson/orderLiveStatusModel')(sequelize,
 
 // Association of User
 db.user.hasOne(db.bankDetails, { foreignKey: 'userId' });
-db.bankDetails.belongsTo(db.user, {foreignKey: 'userId'});
+db.bankDetails.belongsTo(db.user, { foreignKey: 'userId' });
 
 db.user.hasMany(db.products, { foreignKey: 'userId' });
-db.products.belongsTo(db.user, {foreignKey: 'userId'});
+db.products.belongsTo(db.user, { foreignKey: 'userId' });
 
 // Association of Customer
 db.customer.hasMany(db.address, { foreignKey: 'customerId' });
-db.address.belongsTo(db.customer, {foreignKey: 'customerId'});
+db.address.belongsTo(db.customer, { foreignKey: 'customerId' });
 
 db.customer.hasMany(db.order, { foreignKey: 'customerId' });
-db.order.belongsTo(db.customer, {foreignKey: 'customerId'});
+db.order.belongsTo(db.customer, { foreignKey: 'customerId' });
 
 db.customer.hasMany(db.shopingBag, { foreignKey: 'customerId' }); // to fetch data of shopingbag from customer model and add foreignKey 'customerId' in shopingbag
-db.shopingBag.belongsTo(db.customer, {foreignKey: 'customerId'}); // to fetch data of customer from shopingbag model and add foreignKey 'customerId' in shopingbag
+db.shopingBag.belongsTo(db.customer, { foreignKey: 'customerId' }); // to fetch data of customer from shopingbag model and add foreignKey 'customerId' in shopingbag
 
 db.customer.hasMany(db.wishList, { foreignKey: 'customerId' });
-db.wishList.belongsTo(db.customer, {foreignKey: 'customerId'});
+db.wishList.belongsTo(db.customer, { foreignKey: 'customerId' });
 
-db.shopingBag.belongsTo(db.products, { foreignKey: 'productId'}); // to fetch data of products from shopingbag model and add foreignKey 'productId' in shopingbag
+db.order.hasOne(db.payment, { foreignKey: 'orderId' });
+db.payment.belongsTo(db.order, { foreignKey: 'orderId' });
 
-db.wishList.belongsTo(db.products, { foreignKey: 'productId'});
+db.shopingBag.belongsTo(db.products, { foreignKey: 'productId' }); // to fetch data of products from shopingbag model and add foreignKey 'productId' in shopingbag
 
-db.order.hasMany(db.orderedProduct, {foreignKey: 'orderId'});
+db.wishList.belongsTo(db.products, { foreignKey: 'productId' });
 
-db.orderedProduct.belongsTo(db.products, {foreignKey: 'productId'})
+db.order.hasMany(db.orderedProduct, { foreignKey: 'orderId' });
+
+db.orderedProduct.belongsTo(db.products, { foreignKey: 'productId' })
 
 // Association of DeliveryPerson
-db.orderLiveStatus.belongsTo(db.deliveryPerson, {foreignKey: 'deliveryPersonId'});
+db.orderLiveStatus.belongsTo(db.deliveryPerson, { foreignKey: 'deliveryPersonId' });
 
-db.orderLiveStatus.belongsTo(db.user, {foreignKey: 'userId'});
+db.orderLiveStatus.belongsTo(db.user, { foreignKey: 'userId' });
 
-db.order.hasMany(db.orderLiveStatus, {foreignKey: 'orderId'});
+db.order.hasMany(db.orderLiveStatus, { foreignKey: 'orderId' });
+
+db.order.belongsTo(db.address, { foreignKey: 'addressId' });
 
 module.exports = db;

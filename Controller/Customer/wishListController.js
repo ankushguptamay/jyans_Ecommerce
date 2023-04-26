@@ -1,4 +1,5 @@
 const db = require('../../Model');
+const { Op } = require("sequelize");
 const WishList = db.wishList;
 const Product = db.products;
 const ShopingBag = db.shopingBag;
