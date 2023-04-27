@@ -30,3 +30,16 @@ exports.findAllMyProductInShopingBag = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+
+exports.deleteProductInShopingBag = async (req, res) => {
+    try {
+        const id = req.customer.id;
+        const shopingBagId = req.params.id;
+        const shopingBag = await ShopingBag.findOne({ where: { [Op.and]: [{ id: shopingBagId }, { customerId: id }] } });
+        if (!shopingBag) { return res.send({ message: "Shoping Bag is not present!" }) }
+        await shopingBag.delete();
+        res.status(200).send({ message: `Shoping Bag deleted successfully! ID: ${shopingBagId}` });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

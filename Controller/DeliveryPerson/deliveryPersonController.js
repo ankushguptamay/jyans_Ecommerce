@@ -82,3 +82,30 @@ exports.verifyOtp = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+
+exports.findDeliveryPerson = async (req, res) => {
+    try {
+        const id = req.deliveryPerson.id;
+        const deliveryPerson = await DeliveryPerson.findOne({ where: { id: id } });
+        res.status(200).send(deliveryPerson);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+exports.updateDeliveryPerson = async (req, res) => {
+    try {
+        const id = req.deliveryPerson.id;
+        const { name, address } = req.body;
+        const deliveryPerson = await DeliveryPerson.findOne({ where: { id: id } });
+        if (!deliveryPerson) { return res.send({ message: "Delivery Person is not present!" }) }
+        await deliveryPerson.update({
+            ...deliveryPerson,
+            name: name,
+            address: address
+        })
+        res.status(200).send({ message: `Delivery Person modified successfully! ID: ${id}` });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

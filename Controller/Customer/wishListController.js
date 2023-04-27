@@ -40,7 +40,7 @@ exports.moveProductToWishListFromShopingBag = async (req, res) => {
                     productId: shopingBag.productId,
                     customerId: customerId
                 });
-                await ShopingBag.destroy({ where: { productId: productId } }); // delete product from shoping bag
+                await ShopingBag.destroy({ where: { productId: shopingBag.productId } }); // delete product from shoping bag
                 res.status(200).send({ message: `Product added in wish list successfully! Id : ${wishList.id}` });
             }
         } else {

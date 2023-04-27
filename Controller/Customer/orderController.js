@@ -7,6 +7,7 @@ const OrderedProduct = db.orderedProduct;
 const ShopingBag = db.shopingBag;
 const Address = db.address;
 const Payment = db.payment;
+const Customer = db.customer;
 
 const razorpayInstance = new Razorpay({
     // Replace with your key_id
@@ -131,25 +132,44 @@ exports.findAllCustomerOrder = async (req, res) => {
     }
 }
 
-// exports.findAllUserOrderedProduct = async (req, res) => {
-//     try {
-//         const userId = req.user.id;
-//         const orders = await Order.findAll({
-//             where: { customerId: req.customer.id, orderStatus: "paid" },
-//             include: {
-//                 model: OrderedProduct,
-//                 attributes: ['perProductPrice', 'quantity'],
-//                 include: {
-//                     model: Product,
-//                     attributes: ['id', 'name', 'perProductPrice', 'title', 'videoLink', 'details', 'images', 'userId']
-//                 }
-//             },
-//             include: {
-//                 model: Address
-//             }
-//         });
-//         res.status(200).send(orders);
-//     } catch (err) {
-//         res.status(500).send({ message: err.message });
-//     }
-// }
+// for user 
+exports.findAllUserOrderedProduct = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const myProducts = await Product.findAll({
+            where: { userId: userId },
+            attributes: ['id']
+        });
+        // myProducts = [
+        //     {
+        //         "id": 2
+        //     },
+        //     {
+        //         "id": 5
+        //     }
+        // ]
+        const productIds = myProducts.map((product) => { return product.id });
+        const orderedProducts = await OrderedProduct.findAll({
+            where: { productId: productIds },
+            include: {
+                model: Product,
+                attributes: ['id', 'name', 'perProductPrice', 'title', 'videoLink', 'details', 'images', 'userId']
+            },
+            include: {
+                model: Order,
+                attributes: [],
+                include: {
+                    model: Address,
+                    attributes: ['sector', 'city', 'state', 'pinCode', 'type']
+                },
+                include: {
+                    model: Customer,
+                    attributes: ['name', 'email', 'contactNumber']
+                }
+            }
+        });
+        res.status(200).send(orderedProducts);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

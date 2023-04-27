@@ -63,6 +63,7 @@ db.shopingBag.belongsTo(db.products, { foreignKey: 'productId' }); // to fetch d
 db.wishList.belongsTo(db.products, { foreignKey: 'productId' });
 
 db.order.hasMany(db.orderedProduct, { foreignKey: 'orderId' });
+db.orderedProduct.belongsTo(db.order, { foreignKey: 'orderId' });
 
 db.orderedProduct.belongsTo(db.products, { foreignKey: 'productId' })
 

@@ -81,3 +81,29 @@ exports.verifyOtp = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+
+exports.findCustomer = async (req, res) => {
+    try {
+        const id = req.customer.id;
+        const customer = await Customer.findOne({ where: { id: id } });
+        res.status(200).send(customer);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+exports.updateCustomer = async (req, res) => {
+    try {
+        const id = req.customer.id;
+        const { name } = req.body;
+        const customer = await Customer.findOne({ where: { id: id } });
+        if (!customer) { return res.send({ message: "Customer is not present!" }) }
+        await customer.update({
+            ...customer,
+            name: name
+        })
+        res.status(200).send({ message: `Customer modified successfully! ID: ${id}` });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

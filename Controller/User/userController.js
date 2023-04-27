@@ -18,12 +18,12 @@ exports.registerSendOtp = async (req, res) => {
         const countryCode = "+91";
         const isNumber = await User.findOne({ where: { contactNumber: contactNumber } });
         const isEmail = await User.findOne({ where: { email: email } });
-        if (isNumber || isEmail ) { return res.send({ message: "This mobile number or Email is already present!" }) }
+        if (isNumber || isEmail) { return res.send({ message: "This mobile number or Email is already present!" }) }
         await User.create({
             name: name,
             email: email,
             contactNumber: contactNumber,
-            address:address
+            address: address
         });
         await twilio.verify.v2
             .services(TWILIO_SERVICE_SID)
@@ -78,6 +78,33 @@ exports.verifyOtp = async (req, res) => {
             message: `OTP verified successfully!`,
             authToken: authToken
         });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+exports.findUser = async (req, res) => {
+    try {
+        const id = req.user.id;
+        const user = await User.findOne({ where: { id: id } });
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try {
+        const id = req.user.id;
+        const { name, address } = req.body;
+        const user = await User.findOne({ where: { id: id } });
+        if (!user) { return res.send({ message: "User is not present!" }) }
+        await user.update({
+            ...user,
+            name: name,
+            address: address
+        })
+        res.status(200).send({ message: `User modified successfully! ID: ${id}` });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
